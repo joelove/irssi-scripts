@@ -2,12 +2,12 @@ use strict;
 use vars qw($VERSION %IRSSI);
 
 use Irssi;
-$VERSION = '0.0.3';
+$VERSION = '0.0.2';
 %IRSSI = (
 	authors     => 'Joe Love',
 	contact     => 'gnotify@joelove.uk',
 	name        => 'gnotify',
-	description => 'Send a Growl notification that shows who is talking to you in which channel.',
+	description => 'Send a Growl notification when a hilight is triggered. Depends on ',
 	license     => 'GNU General Public License'
 );
 
@@ -24,7 +24,7 @@ $VERSION = '0.0.3';
 
 sub priv_msg {
 	my ($server,$msg,$nick,$address,$target) = @_;
-	growl($nick." " .$msg );
+	growl("$nick $msg");
 }
 
 sub hilight {
@@ -36,7 +36,7 @@ sub hilight {
 
 sub growl {
 	my ($message) = @_;
-	my ($growl_cmd) = "growlnotify -m '". $message ."'";
+	my $growl_cmd = "growlnotify -m '$message'";
 	system($growl_cmd);
 }
 
